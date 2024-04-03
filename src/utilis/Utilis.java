@@ -58,16 +58,28 @@ public class Utilis {
         return true;
     }
 	
+	private static <T> boolean contient(ArrayList<T> liste, T t) {
+		for(T cur : liste) {
+			if(cur.equals(t)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public static <T> ArrayList<T> rassembler(ArrayList<T> liste){
 		ArrayList<T> rassemble = new ArrayList<T>();
+		T t2 = liste.get(0);
+		rassemble.add(liste.remove(0));
 		for(T t: liste){
 			
 			if((rassemble.isEmpty())||
-			(!(rassemble.contains(t)) 
-			|| rassemble.get(rassemble.size()-1).equals(t))) {
-				
+			(!(contient(rassemble, t)) 
+			|| (t2.equals(t) && t.equals(rassemble.get(rassemble.size()-1))))) {
 				rassemble.add(t);
 			}
+			t2 = t;
 		}
 		return rassemble;
 	}
@@ -76,19 +88,24 @@ public class Utilis {
         if (liste.isEmpty()) {
             return true; // Une liste vide est considérée comme rassemblée
         }
-        ListIterator<T> iterator1 = liste.listIterator();
         
-        for(T t = iterator1.next();!iterator1.hasNext(); iterator1.next()) {
-        	if(!t.equals(iterator1.next())) {
-        		ListIterator<T> iterator2 = liste.listIterator(iterator1.nextIndex());
-        		for(T ti = iterator2.next();!iterator2.hasNext(); iterator2.next()) {
-        			if(ti.equals(t)) {
-        				return false;
-        			}
-        		}
-        	}
+        ListIterator<T> iterator1 = liste.listIterator();
+        T previous = iterator1.next();
+        
+        while (iterator1.hasNext()) {
+            T current = iterator1.next();
+            if (!current.equals(previous)) {
+                ListIterator<T> iterator2 = liste.listIterator(iterator1.nextIndex());
+                while (iterator2.hasNext()) {
+                    if (iterator2.next().equals(previous)) {
+                        return false; // Élément identique trouvé plus tard dans la liste
+                    }
+                }
+                previous = current;
+            }
         }
+        
         return true;
-	}
+    }
 
 }

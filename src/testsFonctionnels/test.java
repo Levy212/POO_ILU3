@@ -1,10 +1,11 @@
 package testsFonctionnels;
 import java.util.ArrayList;
+
 import java.util.Iterator;
 
 import cartes.*;
 import cartes.Probleme.Type;
-import jeu.Sabot;
+import jeu.*;
 import utilis.Utilis;
 
 
@@ -63,9 +64,14 @@ public class test {
 		System.out.println(listeCartes);
 		System.out.println("liste rassemblée sans erreur ? " + Utilis.verifierRassemblement(listeCartes));
 		
+		System.out.println("\n");
 		
 		JeuDeCartes jeu3 = new JeuDeCartes();
-		System.out.println(jeu3.checkCount());
+		System.out.println("Le mélange a le bon compte ? "+jeu3.checkCount());
+		
+		
+		
+		
 	}
 
 

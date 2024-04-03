@@ -9,7 +9,18 @@ public class Borne extends Carte {
 	}
 	
 	public String toString() {
-		return "Borne"+km;	
+		switch (km) {
+		case 25: return "Borne25";
+		case 50: return "Borne50";
+		case 75: return "Borne75";
+		case 100: return "Borne100";
+		case 200: return "Borne 200";
+		default:return "Borne";
+		}	
+	}
+
+	public int getKm() {
+		return km;
 	}
 
 }

@@ -32,41 +32,25 @@ public class JeuDeCartes {
 	private int getNbExemplaire(Carte carte) {
 		switch (carte.toString()) {
 		//Attaque
-		case "Feu rouge":
-			return 5;
-		case "Crevaison":
-			return 3;
-		case "Panne d'essence":
-			return 3;
-		case "Accident" :
-			return 3;
-		case "Limite de vitesse":
-			return 4;
+		case "Feu rouge":return 5;
+		case "Crevaison":return 3;
+		case "Panne d'essence":return 3;
+		case "Accident" :return 3;
+		case "Limite de vitesse":return 4;
 		//Parade	
-		case "Reparation":
-			return 6;
-		case "Roue de secours":
-			return 6;
-		case "Essence":
-			return 6;
-		case "Feu vert":
-			return 14;
-		case "Fin de limite de vitesse":
-			return 6;
+		case "Reparation":return 6;
+		case "Roue de secours":return 6;
+		case "Essence":return 6;
+		case "Feu vert":return 14;
+		case "Fin de limite de vitesse":return 6;
 		//Borne
-		case "Borne25":
-			return 10;
-		case "Borne50":
-			return 10;
-		case "Borne75":
-			return 10;
-		case "Borne100":
-			return 12;
-		case "Borne200":
-			return 4;
+		case "Borne25":return 10;
+		case "Borne50":return 10;
+		case "Borne75":return 10;
+		case "Borne100":return 12;
+		case "Borne200":return 4;
 		//Botte
-		default:
-			return 1;
+		default:return 1;
 		}
 		
 		
