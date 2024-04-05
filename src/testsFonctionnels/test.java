@@ -1,6 +1,6 @@
 package testsFonctionnels;
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.Iterator;
 
 import cartes.*;
@@ -61,14 +61,16 @@ public class test {
 		System.out.println("liste mélangée sans erreur ? "
 		+ Utilis.verifierMelange(listeCarteNonMelangee, listeCartes));
 		
+		System.out.println("\\RASSEMBLER\\");
 		listeCartes = Utilis.rassembler(listeCartes);
 		System.out.println(listeCartes);
+		ArrayList<Integer> listeTest = new ArrayList<>();
 		System.out.println("liste rassemblée sans erreur ? " + Utilis.verifierRassemblement(listeCartes));
 		
 		System.out.println("\n");
 		
 		JeuDeCartes jeu3 = new JeuDeCartes();
-		System.out.println("Le mélange a le bon compte ? "+jeu3.checkCount());
+		System.out.println("Le mélange a le bon compte ? "+jeu2.checkCount());
 		
 		
 		

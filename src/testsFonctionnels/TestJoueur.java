@@ -11,10 +11,10 @@ public class TestJoueur {
 		Carte cartTest2 = new Borne(1,200);
 		Carte cartTest3 = new Borne(1,25);
 		ZoneDeJeu zone = new ZoneDeJeu();
-		zone.ajouterBorne(new Borne(1,50));
-		zone.ajouterBorne(new Borne(1,25));
-		zone.ajouterBorne(new Borne(1,100));
-		zone.ajouterBorne(new Borne(1,200));
+		zone.ajouter(new Borne(1,50));
+		zone.ajouter(new Borne(1,25));
+		zone.ajouter(new Borne(1,100));
+		zone.ajouter(new Borne(1,200));
 		
 		
 		

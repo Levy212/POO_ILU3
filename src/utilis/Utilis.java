@@ -67,19 +67,27 @@ public class Utilis {
 		
 		return false;
 	}
-	
-	public static <T> ArrayList<T> rassembler(ArrayList<T> liste){
-		ArrayList<T> rassemble = new ArrayList<T>();
-		for(T t : liste) {
-			T t1 = liste.get(liste.indexOf(t));
-			rassemble.add(liste.remove(liste.indexOf(t)));
-			if(liste.contains(t1)) {
-				rassemble.add(liste.remove(liste.indexOf(t1)));
-			}
+	private static <E> ArrayList<E> sousRassembler(ArrayList<E> liste, E elem){
+		ArrayList<E> res = new ArrayList<>();
+		for(int i=0;i<Collections.frequency(liste, elem);i++) {
+			res.add(elem);
 		}
-			
-		return rassemble;
+		liste.remove(res);
+		return res;
 	}
+	
+	public static <E> ArrayList<E> rassembler(ArrayList<E> liste){
+        ArrayList<E> rassemble = new ArrayList<>();
+        
+        for(E t: liste) {
+        	if(!rassemble.contains(t))
+        	rassemble.addAll(sousRassembler(liste, t));
+        }
+        
+        return rassemble;
+	}
+	
+	
 	
 	public static <T> boolean verifierRassemblement(ArrayList<T> liste) {
         if (liste.isEmpty()) {

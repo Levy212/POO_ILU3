@@ -44,7 +44,7 @@ public class Joueur {
 	}
 	
 	public void deposer(Borne borne) {
-		zone.ajouterBorne(borne);
+		zone.ajouter(borne);
 	}
 	
 	public int donnerKmParcourus() {
