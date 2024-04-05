@@ -18,22 +18,22 @@ public class testZoneDeJeu {
 		
 		Joueur ali = new Joueur("Ali",zone);
 		//System.out.println(ali.donnerKmParcourus());
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.ajouterBotte(Cartes.PRIORITAIRE);
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.ajouterCarteBataille(cartTest2);
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.ajouterBotte(cartTest3);
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.ajouterCarteBataille(new Attaque(1,Type.ESSENCE));
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.ajouterCarteBataille(new Parade(1,Type.ESSENCE));
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.retirerBotte(cartTest3);
 		zone.retirerBotte(Cartes.PRIORITAIRE);
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		zone.ajouterCarteBataille(Cartes.FEU_VERT);
-		System.out.println(ali.estBloque());
+		System.out.println(zone.estBloque());
 		System.out.println(zone.getSetBottes());
 		System.out.println(zone.getPileBataille());
 		

@@ -60,6 +60,7 @@ public class test {
 		System.out.println(listeCartes);
 		System.out.println("liste mélangée sans erreur ? "
 		+ Utilis.verifierMelange(listeCarteNonMelangee, listeCartes));
+		
 		listeCartes = Utilis.rassembler(listeCartes);
 		System.out.println(listeCartes);
 		System.out.println("liste rassemblée sans erreur ? " + Utilis.verifierRassemblement(listeCartes));

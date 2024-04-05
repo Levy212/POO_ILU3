@@ -70,17 +70,14 @@ public class Utilis {
 	
 	public static <T> ArrayList<T> rassembler(ArrayList<T> liste){
 		ArrayList<T> rassemble = new ArrayList<T>();
-		T t2 = liste.get(0);
-		rassemble.add(liste.remove(0));
-		for(T t: liste){
-			
-			if((rassemble.isEmpty())||
-			(!(contient(rassemble, t)) 
-			|| (t2.equals(t) && t.equals(rassemble.get(rassemble.size()-1))))) {
-				rassemble.add(t);
+		for(T t : liste) {
+			T t1 = liste.get(liste.indexOf(t));
+			rassemble.add(liste.remove(liste.indexOf(t)));
+			if(liste.contains(t1)) {
+				rassemble.add(liste.remove(liste.indexOf(t1)));
 			}
-			t2 = t;
 		}
+			
 		return rassemble;
 	}
 	
