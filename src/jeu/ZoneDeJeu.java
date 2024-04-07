@@ -6,8 +6,8 @@ import cartes.*;
 import cartes.Probleme.Type;
 
 public class ZoneDeJeu {
-	private ArrayList<Bataille> pileBataille;
-	private ArrayList<Limite> pileLimite;
+	private List<Bataille> pileBataille;
+	private List<Limite> pileLimite;
 	private Collection<Borne> collectionBornes;
 	private Set<Botte> setBottes;
 	
@@ -58,12 +58,11 @@ public class ZoneDeJeu {
         return setBottes.remove(carte);
     }
 
-    // Méthodes pour accéder aux informations sur la zone de jeu
-    public ArrayList<Limite> getPileLimite() {
+    public List<Limite> getPileLimite() {
         return pileLimite;
     }
 
-    public ArrayList<Bataille> getPileBataille() {
+    public List<Bataille> getPileBataille() {
         return pileBataille;
     }
 
@@ -104,27 +103,35 @@ public class ZoneDeJeu {
     	return false;
     }
     
+    public  Attaque contientMemeAttaque(Botte carte) {
+    	for(Bataille b: getPileBataille()) {
+    		if(b instanceof Attaque && carte.getType().equals(b.getType())) {
+    			return (Attaque)b;
+    		}
+    	}
+    	return null;
+    }
+    
+    
     public boolean estBloque() {
-    	Carte sommetBataille = getPileBataille().get(getPileBataille().size()-1);
-    	boolean prioritaire = getSetBottes().contains(Cartes.PRIORITAIRE);
-    	boolean attaqueFeuSommetBataille = sommetBataille instanceof Attaque && ((Attaque) sommetBataille).getType().equals(Type.FEU);
-    	boolean attaqueAccSommetBataille = sommetBataille instanceof Attaque && ((Attaque) sommetBataille).getType().equals(Type.ACCIDENT);
-    	boolean attaqueCrevSommetBataille = sommetBataille instanceof Attaque && ((Attaque) sommetBataille).getType().equals(Type.CREVAISON);
-    	boolean attaqueEssenceSommetBataille = sommetBataille instanceof Attaque && ((Attaque) sommetBataille).getType().equals(Type.ESSENCE);
-    	boolean paradeFeuSommetBataille = sommetBataille instanceof Parade && ((Parade) sommetBataille).getType().equals(Type.FEU);
+    	boolean prioritaire = getSetBottes().contains(Cartes.PRIORITAIRE);    	
 
     	if(getPileBataille().isEmpty() && prioritaire) {
     		return false;
     	}
-    	if(sommetBataille.toString().equals("Feu vert") || (sommetBataille instanceof Parade &&  prioritaire)) {
-    		return false;
-    	}
-    	if(attaqueFeuSommetBataille && prioritaire) {
-    		return false;
-    	}
-    	if(sommetBataille instanceof Attaque && contientMemeBotte((Bataille) sommetBataille) && prioritaire) {
-    		return false;
-    	}
+    	else if(!getPileBataille().isEmpty()) {
+    		Carte sommetBataille = getPileBataille().get(getPileBataille().size()-1);
+        	boolean attaqueFeuSommetBataille = sommetBataille instanceof Attaque && ((Attaque) sommetBataille).getType().equals(Type.FEU);
+
+        	if(sommetBataille.toString().equals("Feu vert") || (sommetBataille instanceof Parade &&  prioritaire)) {
+        		return false;
+        	}
+        	if((attaqueFeuSommetBataille||
+    			(sommetBataille instanceof Attaque && contientMemeBotte((Bataille) sommetBataille))) 
+    			&& prioritaire) {
+        		return false;
+        	}
+        }
 
     	return true;
     	
@@ -142,10 +149,6 @@ public class ZoneDeJeu {
     
     public boolean estDepotAutorise(Carte carte) {
     	boolean prioritaire = getSetBottes().contains(Cartes.PRIORITAIRE);
-    	Bataille sommetBataille = getPileBataille().get(getPileBataille().size()-1);
-    	boolean attaqueFeuSommetBataille = carte instanceof Attaque && ((Attaque) sommetBataille).getType().equals(Type.FEU);
-    	boolean attaqueFeuCarte = carte instanceof Attaque && ((Attaque) carte).getType().equals(Type.FEU);
-
 
     	if(carte instanceof  Borne && !estBloque() && (((Borne) carte).getKm()+donnerKmParcourus()<=1000)
     			&& ((Borne) carte).getKm()<=donnerLimitationVitesse()) {
@@ -181,11 +184,42 @@ public class ZoneDeJeu {
     			return true;
     			
     		}
-    		else if(top instanceof Parade && carte instanceof Attaque && contientMemeBotte((Bataille)carte)) {
+    		else if(top instanceof Parade && carte instanceof Attaque && !contientMemeBotte((Bataille)carte)){
     			return true;
     		}
     	}
     	return false;
+    }
+    
+    
+    
+    public boolean deposer(Carte c) {
+    	if(estDepotAutorise(c)) {
+    		if(c instanceof Borne) {
+    			deposer((Borne) c);
+    			return true;
+    		}
+    		else if(c instanceof Botte) {
+    			ajouter((Botte)c);
+    			if(contientMemeAttaque((Botte)c)!=null) {
+    				pileBataille.remove(pileBataille.indexOf(contientMemeAttaque((Botte)c)));
+    			}
+    			return true;
+    		}
+    		else if(c instanceof Limite) {
+    			ajouter((Limite) c);
+    			return true;
+    		}
+    		else if(c instanceof Bataille) {
+    			ajouter((Bataille) c);
+    			return true;
+    		}
+    		return false;
+    	}
+    	else {
+    		return false;
+    	}
+    	
     }
 	
 	

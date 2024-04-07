@@ -19,7 +19,7 @@ public class TestJoueur {
 		
 		
 		Joueur ali = new Joueur("Ali",zone);
-		System.out.println(ali.donnerKmParcourus());
+		System.out.println(zone.donnerKmParcourus());
 
 	}
 

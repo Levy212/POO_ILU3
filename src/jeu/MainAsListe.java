@@ -6,10 +6,10 @@ import cartes.Carte;
 
 public class MainAsListe implements IMain {
 	
-	private ArrayList<Carte> main;
+	private List<Carte> main;
 	
 	public MainAsListe() {
-		this.main = new ArrayList<Carte>();
+		this.main = new ArrayList<>();
 	}
 	
 
@@ -33,7 +33,7 @@ public class MainAsListe implements IMain {
 
 	@Override
 	public String toString() {
-		return "MainAsListe [main=" + main + "]";
+		return ""+main;
 	}
 	
 	
