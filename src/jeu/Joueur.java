@@ -53,7 +53,7 @@ public class Joueur {
 				Carte c =  i.next();
 				Coup coup = new Coup(c, j);
 				//System.out.println(coup);
-				if(coup.estValide(this)) {
+				if(coup.estValide(this) && j.getZone().estDepotAutorise(c)) {
 					res.add(coup);
 				}
 			}
@@ -61,13 +61,13 @@ public class Joueur {
 		return res;
 	}
 	
-	public HashSet<Coup> coupsDefausse(Set<Joueur> participants){
+	public HashSet<Coup> coupsDefausse(){
 		HashSet<Coup> res = new HashSet<>();
-		for(Coup c: coupsPossible(participants)) {
-			if(c.getJoueurCible()==null) {
-				res.add(c);
-			}
-		}
+		Iterator<Carte> i = main.iterator();
+		for(int j=0;j<7;j++) {
+			Carte c =  i.next();
+			res.add(new Coup(c, null));
+		}	
 		return res;
 	}
 	
@@ -77,6 +77,27 @@ public class Joueur {
 	
 	public void retirerDeLaMain(Carte carte) {
 		main.jouer(carte);
+	}
+	
+	public Coup choisirCoup(Set<Joueur> participants) {
+		HashSet<Coup> coupsPossibles = coupsPossible(participants);
+		if(coupsPossibles.isEmpty()) {
+			HashSet<Coup> defausse = coupsDefausse();
+			Coup[] tableau = defausse.toArray(new Coup[0]); 
+	        Random random = new Random();
+	        int indiceAleatoire = random.nextInt(tableau.length);
+	        Coup c = tableau[indiceAleatoire];
+			return c;
+			
+		}
+		else {
+			Coup[] tableau = coupsPossibles.toArray(new Coup[0]); 
+	        Random random = new Random();
+	        int indiceAleatoire = random.nextInt(tableau.length);
+	        Coup c = tableau[indiceAleatoire];
+			return c;
+			
+		}
 	}
 	
 	

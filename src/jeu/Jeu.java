@@ -10,7 +10,11 @@ public class Jeu {
 	private Sabot sabot;
 	public Jeu() {
 		this.joueurs = new HashSet<>();
-		this.sabot = new Sabot(107);
+		this.sabot = new Sabot(106);
+	}
+	
+	public Sabot getSabot() {
+		return sabot;
 	}
 	
 	public void inscrire(Joueur joueur) {
@@ -36,34 +40,27 @@ public class Jeu {
 			System.out.println("Le joueur "+j.getNom()+" a en main :"+j.getMain());
 		}
 		
-		if(!sabot.estVide()) {
 		for(Joueur j:joueurs) {
+			if(!sabot.estVide()) {
 			Carte carte=sabot.piocher();
 			j.donner(carte);
 			System.out.println("Le Joueur "+j.getNom()+" a pioche "
 					+carte);
 			carte = j.getMain().iterator().next();
-			HashSet<Coup> coupP = j.coupsPossible(joueurs);
-			if(coupP.isEmpty()) {
+			Coup coup = j.choisirCoup(joueurs);
+			if(coup.getJoueurCible()==null) {
 				j.retirerDeLaMain(carte);
-				Coup coup =new Coup(carte, null);
-				coup.getJoueurCible().deposer(carte);
+				System.out.println(j.getNom()+coup);
 				
 			}
 			else {
-				for(Coup c:coupP) {
-					c.getJoueurCible().deposer(c.getCarte());
-					j.retirerDeLaMain(c.getCarte());
-					System.out.println("Le joueur "+j.getNom()+c);
-					break;
-				}
+				coup.getJoueurCible().deposer(coup.getCarte());
+				j.retirerDeLaMain(coup.getCarte());
+				System.out.println("Le joueur "+j.getNom()+coup);
+			}	
 			}
-			
-			
-		}}
-		else {
-			System.out.println("La partie est terminé");
 		}
+		System.out.println("\n");
 	}
 
 }

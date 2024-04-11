@@ -74,10 +74,6 @@ public class ZoneDeJeu {
         return setBottes;
     }
     
-	public void deposer(Borne borne) {
-		ajouter(borne);
-	}
-	
 	public int donnerKmParcourus() {
 		int res = 0;
 		for(Borne b:getCollectionBornes()) {
@@ -132,7 +128,6 @@ public class ZoneDeJeu {
         		return false;
         	}
         }
-
     	return true;
     	
     }
@@ -196,7 +191,7 @@ public class ZoneDeJeu {
     public boolean deposer(Carte c) {
     	if(estDepotAutorise(c)) {
     		if(c instanceof Borne) {
-    			deposer((Borne) c);
+    			ajouter((Borne) c);
     			return true;
     		}
     		else if(c instanceof Botte) {

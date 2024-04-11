@@ -14,12 +14,20 @@ public class TestJeu {
 		game.remplirSabot(new JeuDeCartes());
 		game.distribuerCarte();
 		
-		while(j1.getZone().donnerKmParcourus()<1000&&
-				j2.getZone().donnerKmParcourus()<1000) {
-			System.out.println(j1.getZone().donnerKmParcourus());
-			System.out.println(j2.getZone().donnerKmParcourus());
+		game.jouerTour();
+		System.out.println("Bornes Parcourus par "+j1.getNom()+" : "+j1.getZone().donnerKmParcourus());
+		System.out.println("Bornes Parcourus par "+j2.getNom()+" : "+j2.getZone().donnerKmParcourus());
+		System.out.println("\n");
+		
+		
+		while((j1.getZone().donnerKmParcourus()<1000&&
+				j2.getZone().donnerKmParcourus()<1000)&& (!game.getSabot().estVide())) {
 			game.jouerTour();
+			System.out.println("Bornes Parcourus par "+j1.getNom()+" : "+j1.getZone().donnerKmParcourus());
+			System.out.println("Bornes Parcourus par "+j2.getNom()+" : "+j2.getZone().donnerKmParcourus());
+			System.out.println("\n");
 		}
+		System.out.println("La partie est terminé");
 
 	}
 

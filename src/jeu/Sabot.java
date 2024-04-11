@@ -66,8 +66,6 @@ public class Sabot implements Iterable<Carte> {
 
 		@Override
 		public Carte next() {
-			System.out.println(nbCartes);
-			System.out.println(cartes[0]+" "+cartes[1]+" "+cartes[2]);
 			verificationConcurrence();
 			if (hasNext()) {
 				Carte carte = cartes[indiceIterateur];
